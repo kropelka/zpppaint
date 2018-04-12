@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/paintbrush.png</file>
+        <file>icons/pen.png</file>
+        <file>icons/pencil.png</file>
+    </qresource>
+</RCC>
