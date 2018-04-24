@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete canvas;
 }
 
 void MainWindow::createMenu()
