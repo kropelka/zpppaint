@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-
+    delete canvas;
 }
 
 void MainWindow::createMenu()
@@ -40,6 +40,8 @@ void MainWindow::createMenu()
 
     fileMenu->addAction(openAct);
     fileMenu->addAction(newAct);
+
+    canvas->newImage(800,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
 
 void MainWindow::createToolbar()

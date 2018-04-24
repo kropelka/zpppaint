@@ -13,6 +13,7 @@ class Canvas : public QWidget
 public:
     Canvas(QWidget *parent = 0);
     void loadImage(const QString& filename);
+    void newImage(int width, int height);
     int getWidth();    //przyda nam się przy tworzeniu filtrów
     int getHeight();
 protected:

@@ -10,6 +10,13 @@ void Canvas::loadImage(const QString &filename)
     image.load(filename);
 }
 
+void Canvas::newImage(int width, int height)
+{
+    QImage newImage(width,height, QImage::Format_RGB32);
+    newImage.fill(Qt::white);
+    image = newImage;
+}
+
 int Canvas::getWidth()
 {
     return image.width();
@@ -39,8 +46,10 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
     {
         QPainter painter(&image);
         painter.drawLine(lastPoint, event->pos());
+        //painter.drawPoint(lastPoint);
         update(QRect(lastPoint, event->pos()).normalized());
         lastPoint = event->pos();
+        update();  //dzięki temu updatowi nie ma przerw pomiędzy rysowanymi liniami
     }
 }
 
