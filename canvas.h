@@ -16,6 +16,8 @@ public:
     void newImage(int width, int height);
     int getWidth();    //przyda nam się przy tworzeniu filtrów
     int getHeight();
+    void detectEdges();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

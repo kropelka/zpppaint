@@ -7,7 +7,6 @@
 #include<QDebug>
 #include<QVBoxLayout>
 #include "newfiledialog.h"
-#include "sobel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -38,8 +37,12 @@ void MainWindow::createMenu()
     openAct->setIcon(QIcon::fromTheme("document-open"));
     connect(openAct, &QAction::triggered, this, &MainWindow::open);
 
+    edgeAct = new QAction("Krawędzie",this);
+    connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
+
     fileMenu->addAction(openAct);
     fileMenu->addAction(newAct);
+    fileMenu->addAction(edgeAct);
 
     canvas->newImage(800,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
@@ -47,6 +50,11 @@ void MainWindow::createMenu()
 void MainWindow::createToolbar()
 {
     addToolBar(toolbar.get());
+}
+
+void MainWindow::edgeDetect()
+{
+    canvas->detectEdges();
 }
 
 void MainWindow::open()

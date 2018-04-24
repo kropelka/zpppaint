@@ -1,4 +1,5 @@
 ﻿#include "canvas.h"
+#include "sobel.h"
 //siema mordy test
 Canvas::Canvas(QWidget *parent)
 {
@@ -25,6 +26,11 @@ int Canvas::getWidth()
 int Canvas::getHeight()
 {
     return image.height();
+}
+
+void Canvas::detectEdges()
+{
+
 }
 
 void Canvas::paintEvent(QPaintEvent *event)

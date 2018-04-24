@@ -8,11 +8,22 @@
  *  Implementacja algorytmu wykrywania krawędzi Sobel'a
 */
 
-class sobel : public QWidget
+class Sobel : public Canvas
 {
     Q_OBJECT
 public:
-    explicit sobel(QWidget *parent = nullptr);
+    explicit Sobel();
+    void copyImage(QImage source);
+    void findMax();
+    void findMin();
+    void scaleValues();
+    void convert2Mono();
+    void edgeDetection();
+
+protected:
+    QImage im,imOut;
+    int imageSize;
+    int minVal, maxVal;
 
 signals:
 
