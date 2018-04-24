@@ -5,6 +5,11 @@ Sobel::Sobel()
 
 }
 
+void Sobel::loadImage(const QString &filename)
+{
+    im.load(filename);
+}
+
 void Sobel::copyImage(QImage source)
 {
     im = source;

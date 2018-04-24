@@ -1,6 +1,8 @@
 ﻿#include "canvas.h"
 #include "sobel.h"
-//siema mordy test
+
+//canvas
+
 Canvas::Canvas(QWidget *parent)
 {
 

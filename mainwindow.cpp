@@ -7,6 +7,7 @@
 #include<QDebug>
 #include<QVBoxLayout>
 #include "newfiledialog.h"
+#include "sobel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)

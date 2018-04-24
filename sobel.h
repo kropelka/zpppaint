@@ -8,11 +8,12 @@
  *  Implementacja algorytmu wykrywania krawędzi Sobel'a
 */
 
-class Sobel : public Canvas
+class Sobel
 {
     Q_OBJECT
 public:
     explicit Sobel();
+    void loadImage(const QString& filename);
     void copyImage(QImage source);
     void findMax();
     void findMin();
@@ -22,6 +23,8 @@ public:
 
 protected:
     QImage im,imOut;
+
+private:
     int imageSize;
     int minVal, maxVal;
 
