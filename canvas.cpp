@@ -1,5 +1,5 @@
-#include "canvas.h"
-
+﻿#include "canvas.h"
+//siema mordy test
 Canvas::Canvas(QWidget *parent)
 {
 
