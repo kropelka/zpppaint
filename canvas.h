@@ -13,6 +13,8 @@ class Canvas : public QWidget
 public:
     Canvas(QWidget *parent = 0);
     void loadImage(const QString& filename);
+    int getWidth();    //przyda nam się przy tworzeniu filtrów
+    int getHeight();
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

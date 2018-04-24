@@ -10,6 +10,16 @@ void Canvas::loadImage(const QString &filename)
     image.load(filename);
 }
 
+int Canvas::getWidth()
+{
+    return image.width();
+}
+
+int Canvas::getHeight()
+{
+    return image.height();
+}
+
 void Canvas::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);

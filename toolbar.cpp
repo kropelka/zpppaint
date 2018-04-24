@@ -16,7 +16,7 @@ Toolbar::Toolbar()
     tool2.name = "Pędzel";
     tool2.icon = QIcon(":/icons/paintbrush.png");
     tool3.name = "Wykrywanie krawędzi";
-    tool3.icon = QIcon(":/icons/edge.png");
+    tool3.icon = QIcon(":/icons/pen.png"); //tymczasowo ikonka długopisu
     addTool(tool1); addTool(tool2); addTool(tool3);
 }
 
