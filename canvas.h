@@ -17,6 +17,12 @@ public:
     int getWidth();    //przyda nam się przy tworzeniu filtrów
     int getHeight();
     void detectEdges();
+    void copyImage(QImage source);
+    void findMax();
+    void findMin();
+    void scaleValues();
+    void convert2Mono();
+    void edgeDetection();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -26,6 +32,9 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 
 private:
+    QImage im,imOut;
+    int imageSize;
+    int minVal, maxVal;
     QImage image;
     QPoint lastPoint;
     bool currentlyDrawing;

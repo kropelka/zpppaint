@@ -1,5 +1,4 @@
 ﻿#include "canvas.h"
-#include "sobel.h"
 
 //canvas
 
@@ -32,7 +31,11 @@ int Canvas::getHeight()
 
 void Canvas::detectEdges()
 {
-
+    copyImage(image);
+    scaleValues();
+    edgeDetection();
+    image = imOut;
+    update();
 }
 
 void Canvas::paintEvent(QPaintEvent *event)
@@ -76,6 +79,169 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
 void Canvas::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
+}
+
+void Canvas::copyImage(QImage source)
+{
+    im = source;
+    //im.convertToFormat(QImage::Format_RGB32);
+    imageSize = im.width() * im.height();
+}
+
+void Canvas::convert2Mono()
+{
+    QColor rgb;
+    int r,g,b;
+    int grey;
+
+    for(unsigned int i = 0; i < im.width(); i++){
+        for(unsigned int j = 0; j < im.height(); j++){
+            rgb = im.pixelColor(i,j);
+            r = rgb.red();
+            g = rgb.green();
+            b = rgb.blue();
+            grey = round((r+g+b)/3);
+            rgb.setRed(grey);
+            rgb.setGreen(grey);
+            rgb.setBlue(grey);
+        }
+    }
+
+}
+
+void Canvas::findMax()
+{
+    QColor rgb;
+    int grey;
+    int max = 0;
+
+    for(unsigned int i = 0; i < im.width(); i++){
+        for(unsigned int j = 0; j < im.height(); j++){
+            rgb = im.pixelColor(i,j);
+            grey = rgb.red();
+            if (grey > max){
+                max = grey;
+            }
+        }
+    }
+
+    maxVal = max;
+}
+
+void Canvas::findMin()
+{
+    QColor rgb;
+    int grey;
+    int min = 255;
+
+    for(unsigned int i = 0; i < im.width(); i++){
+        for(unsigned int j = 0; j < im.height(); j++){
+            rgb = im.pixelColor(i,j);
+            grey = rgb.red();
+            if (grey < min){
+                min = grey;
+            }
+        }
+    }
+
+    minVal = min;
+}
+
+void Canvas::scaleValues()
+{
+    double tmp;
+    int newValue;
+    QColor color;
+
+    convert2Mono();
+    findMin();
+    findMax();
+
+    for(unsigned int i = 0; i < im.width(); i++){
+        for(unsigned int j = 0; j < im.height(); j++){
+            color = im.pixelColor(i,j);
+            tmp = (double)(color.red() - minVal)/(maxVal - minVal);
+            newValue = round(tmp*255);
+            color.setRed(newValue);
+            color.setGreen(newValue);
+            color.setBlue(newValue);
+            im.setPixelColor(i,j,color);
+        }
+    }
+}
+
+void Canvas::edgeDetection()
+{
+    int * tab = new int[imageSize];
+    int * tab2 = new int[imageSize];
+    int x = 0, y = 0;
+    int xG = 0, yG = 0;
+    int width,height;
+    int tmpColor;
+    QColor color;
+
+    width = im.width();
+    height = im.height();
+
+    QImage tmpImage(im.width(),im.height(),QImage::Format_RGB32);
+
+    tmpImage = im;
+
+    for(unsigned int k = 0; k < width; k++){
+        for(unsigned int l = 0; l < height; l++){
+            color = tmpImage.pixelColor(k,l);
+            tab[(l+(k*width))] = color.red();
+        }
+    }
+
+    for(unsigned int i = 0; i < imageSize; i++){
+        x = i % width;
+
+        if(i != 0 && x == 0){
+
+            y++;
+
+        }
+
+        if((x < (width - 1)) && (y < (height - 1))
+                && (y > 0) && (x > 0)){
+
+            xG = (tab[(x+1) + ((y-1) * width)]
+                         + (2 * tab[(x+1) + (y * width)])
+                         + tab[(x+1) + ((y+1) * width)]
+                                  - tab[(x-1) + ((y-1) * width)]
+                                           - (2 * tab[(x-1) + (y * width)])
+                                           - tab[(x-1) + ((y+1) * width)]);
+
+            yG = (tab[(x-1) + ((y+1) * width)]
+                         + (2 * tab[(x) + ((y + 1) * width)])
+                         + tab[(x+1) + ((y+1) * width)]
+                                  - tab[(x-1) + ((y-1) * width)]
+                                           - (2 * tab[(x) + ((y-1) * width)])
+                                           - tab[(x+1) + ((y-1) * width)]);
+
+            tmpColor = sqrt((xG * xG) + (yG * yG));
+            tab2[i] = tmpColor;
+        }else{
+            tmpColor = 0;
+            tab2[i] = tmpColor;
+        }
+
+    }
+
+    for(unsigned int i = 0; i < width; i++){
+        for(unsigned int j = 0; j < height; j++){
+            tmpColor = tab2[(j+(i*width))];
+            color.setRgb(tmpColor,tmpColor,tmpColor);
+            tmpImage.setPixelColor(i,j,color);
+        }
+    }
+
+    delete [] tab;
+    delete [] tab2;
+
+    imOut = tmpImage;
+
 }
 
 
