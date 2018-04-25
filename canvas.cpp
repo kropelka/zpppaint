@@ -1,10 +1,10 @@
 ﻿#include "canvas.h"
+#include "pencil.h"
 
-//canvas
 
 Canvas::Canvas(QWidget *parent)
 {
-
+    currentTool = new Pencil(); // nawet jeżeli coś pójdzie nie tak, to jako fallback będzie zwykły ołówek
 }
 
 void Canvas::loadImage(const QString &filename)
@@ -55,8 +55,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons() && currentlyDrawing)
     {
-        QPainter painter(&image);
-        painter.drawLine(lastPoint, event->pos());
+        currentTool->draw(image, lastPoint, event->pos());
         //painter.drawPoint(lastPoint);
         update(QRect(lastPoint, event->pos()).normalized());
         lastPoint = event->pos();
@@ -68,8 +67,9 @@ void Canvas::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->buttons() && currentlyDrawing)
     {
-        QPainter painter(&image);
-        painter.drawLine(lastPoint, event->pos());
+        //QPainter painter(&image);
+        //painter.drawLine(lastPoint, event->pos());
+        currentTool->draw(image, lastPoint, event->pos());
         update(QRect(lastPoint, event->pos()).normalized());
         lastPoint = event->pos();
     }
@@ -241,6 +241,11 @@ void Canvas::edgeDetection()
     delete [] tab2;
 
     imOut = tmpImage;
+}
+
+void Canvas::setCurrentTool(Tool *tool)
+{
+    currentTool = tool;
 }
 
 

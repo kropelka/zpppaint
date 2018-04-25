@@ -6,6 +6,7 @@
 #include<QAction>
 #include "toolbar.h"
 #include<QScrollArea>
+#include<QActionGroup>
 
 namespace Ui {
 class MainWindow;
@@ -23,13 +24,19 @@ private:
     Toolbar toolbar;
     Canvas *canvas;
     QScrollArea *scrollArea;
-    QMenu *fileMenu;
 
+    QMenu *fileMenu;
     QAction *newAct, *openAct, *saveAct, *edgeAct;
+
+    QMenu *toolMenu;
+    QAction *pencilAct, *brushAct;
+    QActionGroup *toolGroup;
 
     void createMenu();
     void createToolbar();
 
+    void selectBrush();
+    void selectPencil();
 private slots:
     void open();
     void newFile();
