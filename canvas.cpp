@@ -84,7 +84,7 @@ void Canvas::resizeEvent(QResizeEvent *event)
 void Canvas::copyImage(QImage source)
 {
     im = source;
-    //im.convertToFormat(QImage::Format_RGB32);
+    im.convertToFormat(QImage::Format_RGB32);
     imageSize = im.width() * im.height();
 }
 
@@ -241,7 +241,6 @@ void Canvas::edgeDetection()
     delete [] tab2;
 
     imOut = tmpImage;
-
 }
 
 

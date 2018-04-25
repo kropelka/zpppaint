@@ -7,7 +7,6 @@
 #include<QDebug>
 #include<QVBoxLayout>
 #include "newfiledialog.h"
-#include "sobel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -45,7 +44,7 @@ void MainWindow::createMenu()
     fileMenu->addAction(newAct);
     fileMenu->addAction(edgeAct);
 
-    canvas->newImage(800,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
+    canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
 
 void MainWindow::createToolbar()
