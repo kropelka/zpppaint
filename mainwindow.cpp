@@ -7,6 +7,9 @@
 #include<QDebug>
 #include<QVBoxLayout>
 #include "newfiledialog.h"
+#include "pencil.h"
+#include "brush.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -31,20 +34,47 @@ void MainWindow::createMenu()
 {
     fileMenu = menuBar()->addMenu("&Plik");
     newAct = new QAction("&Nowy", this);
-    connect(newAct, &QAction::triggered, this, &MainWindow::newFile);
-
     openAct = new QAction("&Otwórz", this);
     openAct->setIcon(QIcon::fromTheme("document-open"));
-    connect(openAct, &QAction::triggered, this, &MainWindow::open);
-
     edgeAct = new QAction("Krawędzie",this);
+
+    connect(newAct, &QAction::triggered, this, &MainWindow::newFile);
+    connect(openAct, &QAction::triggered, this, &MainWindow::open);
     connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
 
     fileMenu->addAction(openAct);
     fileMenu->addAction(newAct);
     fileMenu->addAction(edgeAct);
 
+    /* zanim zrobi się ładny przybornik, to opcja wyboru narzędzia w menu */
+    toolMenu = menuBar()->addMenu("&Narzędzie");
+    pencilAct = new QAction("&Ołówek", this);
+    brushAct = new QAction("&Pędzel");
+    pencilAct->setCheckable(true);
+    brushAct->setCheckable(true);
+    toolMenu->addAction(pencilAct);
+    toolMenu->addAction(brushAct);
+    toolGroup = new QActionGroup(this);
+    toolGroup->addAction(pencilAct);
+    toolGroup->addAction(brushAct);
+    pencilAct->setChecked(true);
+
+    connect(pencilAct, &QAction::triggered, this, &MainWindow::selectPencil);
+    connect(brushAct, &QAction::triggered, this, &MainWindow::selectBrush);
+
+
+
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
+}
+
+void MainWindow::selectPencil()
+{
+    canvas->setCurrentTool(new Pencil());
+}
+
+void MainWindow::selectBrush()
+{
+    canvas->setCurrentTool(new Brush());
 }
 
 void MainWindow::createToolbar()

@@ -6,7 +6,7 @@
 #include<QRect>
 #include<QPaintEvent>
 #include<QPoint>
-
+#include "tool.h"
 class Canvas : public QWidget
 {
     Q_OBJECT
@@ -23,6 +23,7 @@ public:
     void scaleValues();
     void convert2Mono();
     void edgeDetection();
+    void setCurrentTool(Tool *tool);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -38,6 +39,7 @@ private:
     QImage image;
     QPoint lastPoint;
     bool currentlyDrawing;
+    Tool *currentTool;
 };
 
 #endif // CANVAS_H

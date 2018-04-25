@@ -29,14 +29,20 @@ SOURCES += \
     canvas.cpp \
     tool.cpp \
     toolbar.cpp \
-    newfiledialog.cpp
+    newfiledialog.cpp \
+    pencil.cpp \
+    brush.cpp \
+    bresenham.cpp
 
 HEADERS += \
         mainwindow.h \
     canvas.h \
     tool.h \
     toolbar.h \
-    newfiledialog.h
+    newfiledialog.h \
+    pencil.h \
+    brush.h \
+    bresenham.h
 
 FORMS += \
         mainwindow.ui
