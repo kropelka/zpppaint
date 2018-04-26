@@ -18,6 +18,7 @@ void Canvas::newImage(int width, int height)
     QImage newImage(width,height, QImage::Format_RGB32);
     newImage.fill(Qt::white);
     image = newImage;
+    update();
 }
 
 int Canvas::getWidth()
