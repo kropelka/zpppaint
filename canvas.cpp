@@ -153,6 +153,10 @@ void Canvas::scaleValues(bool mono)
     int newValue;
     QColor color;
 
+    if(mono){
+        copyImage(image);
+    }
+
     convert2Mono();
     findMin();
     findMax();
@@ -167,7 +171,7 @@ void Canvas::scaleValues(bool mono)
         }
     }
 
-    if (mono == true){
+    if (mono){
         image = im;
         update();
     }
