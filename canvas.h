@@ -20,7 +20,7 @@ public:
     void copyImage(QImage source);
     void findMax();
     void findMin();
-    void scaleValues();
+    void scaleValues(bool mono);
     void convert2Mono();
     void edgeDetection();
     void setCurrentTool(Tool *tool);

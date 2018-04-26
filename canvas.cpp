@@ -1,5 +1,6 @@
 ﻿#include "canvas.h"
 #include "pencil.h"
+#include <iostream>
 
 
 Canvas::Canvas(QWidget *parent)
@@ -32,7 +33,7 @@ int Canvas::getHeight()
 void Canvas::detectEdges()
 {
     copyImage(image);
-    scaleValues();
+    scaleValues(false);
     edgeDetection();
     image = imOut;
     update();
@@ -147,7 +148,7 @@ void Canvas::findMin()
     minVal = min;
 }
 
-void Canvas::scaleValues()
+void Canvas::scaleValues(bool mono)
 {
     double tmp;
     int newValue;
@@ -168,12 +169,17 @@ void Canvas::scaleValues()
             im.setPixelColor(i,j,color);
         }
     }
+    if (mono){
+        imOut = im;
+    }
 }
 
 void Canvas::edgeDetection()
 {
-    int * tab = new int[imageSize];
-    int * tab2 = new int[imageSize];
+    //int * tab = new int[imageSize];
+    //int * tab2 = new int[imageSize];
+    std::vector < int > tab;
+    std::vector < int > tab2;
     int x = 0, y = 0;
     int xG = 0, yG = 0;
     int width,height;
@@ -182,7 +188,8 @@ void Canvas::edgeDetection()
 
     width = im.width();
     height = im.height();
-
+    std::cout << height << " wysokosc " << width<< " szerokosc " << std::endl;
+    /*
     QImage tmpImage(im.width(),im.height(),QImage::Format_RGB32);
 
     tmpImage = im;
@@ -190,7 +197,8 @@ void Canvas::edgeDetection()
     for(unsigned int k = 0; k < width; k++){
         for(unsigned int l = 0; l < height; l++){
             color = tmpImage.pixelColor(k,l);
-            tab[(l+(k*width))] = color.red();
+            //std::cout << color.value() << " szer : " << k << " wys : " << l << std::endl;
+            tab.push_back(color.red());
         }
     }
 
@@ -221,10 +229,15 @@ void Canvas::edgeDetection()
                                            - tab[(x+1) + ((y-1) * width)]);
 
             tmpColor = sqrt((xG * xG) + (yG * yG));
-            tab2[i] = tmpColor;
+
+            if (tmpColor > 255){
+                tmpColor = 255;
+            }
+
+            tab2.push_back(tmpColor);
         }else{
             tmpColor = 0;
-            tab2[i] = tmpColor;
+            tab2.push_back(tmpColor);
         }
 
     }
@@ -232,15 +245,13 @@ void Canvas::edgeDetection()
     for(unsigned int i = 0; i < width; i++){
         for(unsigned int j = 0; j < height; j++){
             tmpColor = tab2[(j+(i*width))];
+            std::cout << tmpColor << " szer : " << i << " wys : " << j << std::endl;
             color.setRgb(tmpColor,tmpColor,tmpColor);
             tmpImage.setPixelColor(i,j,color);
         }
     }
 
-    delete [] tab;
-    delete [] tab2;
-
-    imOut = tmpImage;
+    imOut = tmpImage; */
 }
 
 void Canvas::setCurrentTool(Tool *tool)
