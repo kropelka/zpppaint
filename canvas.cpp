@@ -176,8 +176,6 @@ void Canvas::scaleValues(bool mono)
 
 void Canvas::edgeDetection()
 {
-    //int * tab = new int[imageSize];
-    //int * tab2 = new int[imageSize];
     std::vector < int > tab;
     std::vector < int > tab2;
     int x = 0, y = 0;
@@ -188,8 +186,7 @@ void Canvas::edgeDetection()
 
     width = im.width();
     height = im.height();
-    std::cout << height << " wysokosc " << width<< " szerokosc " << std::endl;
-    /*
+
     QImage tmpImage(im.width(),im.height(),QImage::Format_RGB32);
 
     tmpImage = im;
@@ -197,7 +194,6 @@ void Canvas::edgeDetection()
     for(unsigned int k = 0; k < width; k++){
         for(unsigned int l = 0; l < height; l++){
             color = tmpImage.pixelColor(k,l);
-            //std::cout << color.value() << " szer : " << k << " wys : " << l << std::endl;
             tab.push_back(color.red());
         }
     }
@@ -244,14 +240,13 @@ void Canvas::edgeDetection()
 
     for(unsigned int i = 0; i < width; i++){
         for(unsigned int j = 0; j < height; j++){
-            tmpColor = tab2[(j+(i*width))];
-            std::cout << tmpColor << " szer : " << i << " wys : " << j << std::endl;
+            tmpColor = tab2[(j+(i*height))];
             color.setRgb(tmpColor,tmpColor,tmpColor);
             tmpImage.setPixelColor(i,j,color);
         }
     }
 
-    imOut = tmpImage; */
+    imOut = tmpImage;
 }
 
 void Canvas::setCurrentTool(Tool *tool)
