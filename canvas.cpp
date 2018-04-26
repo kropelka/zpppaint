@@ -176,9 +176,9 @@ void Canvas::scaleValues(bool mono)
 
 void Canvas::edgeDetection()
 {
-    std::vector < int > tab;
-    std::vector < int > tab2;
-    int x = 0, y = 0;
+    std::vector <std::vector< unsigned char >> tab;
+    std::vector <std::vector< unsigned char >> tab2;
+    std::vector < unsigned char > tmp;
     int xG = 0, yG = 0;
     int width,height;
     int tmpColor;
@@ -194,57 +194,56 @@ void Canvas::edgeDetection()
     for(unsigned int k = 0; k < width; k++){
         for(unsigned int l = 0; l < height; l++){
             color = tmpImage.pixelColor(k,l);
-            tab.push_back(color.red());
+            tmp.push_back(static_cast<unsigned char>(color.red()));
         }
-    }
-
-    for(unsigned int i = 0; i < imageSize; i++){
-        x = i % width;
-
-        if(i != 0 && x == 0){
-
-            y++;
-
-        }
-
-        if((x < (width - 1)) && (y < (height - 1))
-                && (y > 0) && (x > 0)){
-
-            xG = (tab[(x+1) + ((y-1) * width)]
-                         + (2 * tab[(x+1) + (y * width)])
-                         + tab[(x+1) + ((y+1) * width)]
-                                  - tab[(x-1) + ((y-1) * width)]
-                                           - (2 * tab[(x-1) + (y * width)])
-                                           - tab[(x-1) + ((y+1) * width)]);
-
-            yG = (tab[(x-1) + ((y+1) * width)]
-                         + (2 * tab[(x) + ((y + 1) * width)])
-                         + tab[(x+1) + ((y+1) * width)]
-                                  - tab[(x-1) + ((y-1) * width)]
-                                           - (2 * tab[(x) + ((y-1) * width)])
-                                           - tab[(x+1) + ((y-1) * width)]);
-
-            tmpColor = sqrt((xG * xG) + (yG * yG));
-
-            if (tmpColor > 255){
-                tmpColor = 255;
-            }
-
-            tab2.push_back(tmpColor);
-        }else{
-            tmpColor = 0;
-            tab2.push_back(tmpColor);
-        }
-
+        tab.push_back(tmp);
+        tab2.push_back(tmp);
+        tmp.clear();
     }
 
     for(unsigned int i = 0; i < width; i++){
         for(unsigned int j = 0; j < height; j++){
-            tmpColor = tab2[(j+(i*height))];
-            color.setRgb(tmpColor,tmpColor,tmpColor);
-            tmpImage.setPixelColor(i,j,color);
+
+            if((i<(width-1)) && (j < (height -1))
+                    && (i > 0) && (j > 0)){
+
+                xG = (tab[i+1][j-1]
+                        + (2* tab[i+1][j])
+                        + tab[i+1][j+1]
+                            - tab[i-1][j-1]
+                                - (2* tab[i-1][j])
+                                - tab[i-1][j+1]);
+
+                yG = (tab[i-1][j+1]
+                        + (2* tab[i][j+1])
+                        + tab[i+1][j+1]
+                            - tab[i-1][j-1]
+                                - (2* tab[i][j-1])
+                                - tab[i+1][j-1]);
+
+                tmpColor = sqrt((xG * xG) + (yG * yG));
+
+                if (tmpColor > 255){
+                    tmpColor = 255;
+                }
+
+                tab2[i][j] = tmpColor;
+            } else{
+                tmpColor = 0;
+                tab2[i][j] = tmpColor;
+            }
+
         }
     }
+
+    for(unsigned int i = 0; i < width; i++){
+        for(unsigned int j = 0; j < height; j++){
+            tmpColor = tab2[i][j];
+            color.setRgb(tmpColor,tmpColor,tmpColor);
+            tmpImage.setPixelColor(i,j,color);
+         }
+    }
+
 
     imOut = tmpImage;
 }
