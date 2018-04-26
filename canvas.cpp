@@ -18,6 +18,7 @@ void Canvas::newImage(int width, int height)
     QImage newImage(width,height, QImage::Format_RGB32);
     newImage.fill(Qt::white);
     image = newImage;
+    update();
 }
 
 int Canvas::getWidth()
@@ -86,7 +87,6 @@ void Canvas::copyImage(QImage source)
 {
     im = source;
     im.convertToFormat(QImage::Format_RGB32);
-    imageSize = im.width() * im.height();
 }
 
 void Canvas::convert2Mono()
@@ -154,6 +154,10 @@ void Canvas::scaleValues(bool mono)
     int newValue;
     QColor color;
 
+    if(mono){
+        copyImage(image);
+    }
+
     convert2Mono();
     findMin();
     findMax();
@@ -163,14 +167,14 @@ void Canvas::scaleValues(bool mono)
             color = im.pixelColor(i,j);
             tmp = (double)(color.red() - minVal)/(maxVal - minVal);
             newValue = round(tmp*255);
-            color.setRed(newValue);
-            color.setGreen(newValue);
-            color.setBlue(newValue);
+            color.setRgb(newValue,newValue,newValue);
             im.setPixelColor(i,j,color);
         }
     }
+
     if (mono){
-        imOut = im;
+        image = im;
+        update();
     }
 }
 

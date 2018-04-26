@@ -36,15 +36,12 @@ void MainWindow::createMenu()
     newAct = new QAction("&Nowy", this);
     openAct = new QAction("&Otwórz", this);
     openAct->setIcon(QIcon::fromTheme("document-open"));
-    edgeAct = new QAction("Krawędzie",this);
 
     connect(newAct, &QAction::triggered, this, &MainWindow::newFile);
     connect(openAct, &QAction::triggered, this, &MainWindow::open);
-    connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
 
     fileMenu->addAction(openAct);
     fileMenu->addAction(newAct);
-    fileMenu->addAction(edgeAct);
 
     /* zanim zrobi się ładny przybornik, to opcja wyboru narzędzia w menu */
     toolMenu = menuBar()->addMenu("&Narzędzie");
@@ -62,7 +59,14 @@ void MainWindow::createMenu()
     connect(pencilAct, &QAction::triggered, this, &MainWindow::selectPencil);
     connect(brushAct, &QAction::triggered, this, &MainWindow::selectBrush);
 
+    editMenu = menuBar()->addMenu("&Edytuj");
+    edgeAct = new QAction("Wykryj krawędzie",this);
+    monoAct = new QAction("Konwersja monochromatyczna",this);
+    editMenu->addAction(edgeAct);
+    editMenu->addAction(monoAct);
 
+    connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
+    connect(monoAct, &QAction::triggered, this, &MainWindow::Mono);
 
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
@@ -85,6 +89,11 @@ void MainWindow::createToolbar()
 void MainWindow::edgeDetect()
 {
     canvas->detectEdges();
+}
+
+void MainWindow::Mono()
+{
+    canvas->scaleValues(true);
 }
 
 void MainWindow::open()
