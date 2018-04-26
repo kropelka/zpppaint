@@ -14,7 +14,7 @@ public:
     Canvas(QWidget *parent = 0);
     void loadImage(const QString& filename);
     void newImage(int width, int height);
-    int getWidth();    //przyda nam się przy tworzeniu filtrów
+    int getWidth();
     int getHeight();
     void detectEdges();
     void copyImage(QImage source);
@@ -34,7 +34,6 @@ protected:
 
 private:
     QImage im,imOut;
-    int imageSize;
     int minVal, maxVal;
     QImage image;
     QPoint lastPoint;

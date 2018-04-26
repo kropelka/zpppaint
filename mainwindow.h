@@ -26,11 +26,14 @@ private:
     QScrollArea *scrollArea;
 
     QMenu *fileMenu;
-    QAction *newAct, *openAct, *saveAct, *edgeAct;
+    QAction *newAct, *openAct, *saveAct;
 
     QMenu *toolMenu;
     QAction *pencilAct, *brushAct;
     QActionGroup *toolGroup;
+
+    QMenu *editMenu;
+    QAction *edgeAct, *monoAct;
 
     void createMenu();
     void createToolbar();
@@ -41,6 +44,7 @@ private slots:
     void open();
     void newFile();
     void edgeDetect();
+    void Mono();
 };
 
 #endif // MAINWINDOW_H
