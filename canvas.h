@@ -18,6 +18,7 @@ public:
     int getHeight();
     void detectEdges();
     void copyImage(QImage source);
+    void resizeImage(int x, int y);
     void findMax();
     void findMin();
     void scaleValues(bool mono);

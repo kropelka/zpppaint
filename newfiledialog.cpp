@@ -17,4 +17,7 @@ NewFileDialog::NewFileDialog()
     mainLayout->addWidget(dialogFields);
     mainLayout->addWidget(buttonBox);
     setLayout(mainLayout);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, [=](){ qDebug("ok");});
+    connect(buttonBox, &QDialogButtonBox::rejected, this, [=](){ qDebug("cancel"); });
 }

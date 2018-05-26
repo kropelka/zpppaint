@@ -62,11 +62,14 @@ void MainWindow::createMenu()
     editMenu = menuBar()->addMenu("&Edytuj");
     edgeAct = new QAction("Wykryj krawędzie",this);
     monoAct = new QAction("Konwersja monochromatyczna",this);
+    scaleAct = new QAction("Skaluj obraz", this);
     editMenu->addAction(edgeAct);
     editMenu->addAction(monoAct);
+    editMenu->addAction(scaleAct);
 
     connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
     connect(monoAct, &QAction::triggered, this, &MainWindow::Mono);
+    connect(scaleAct, &QAction::triggered, this, &MainWindow::scaleImg);
 
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
@@ -113,4 +116,14 @@ void MainWindow::newFile()
 {
     NewFileDialog dialog;
     dialog.exec();
+}
+
+void MainWindow::scaleImg()
+{
+    canvas->resizeImage(100,100);
+}
+
+void MainWindow::createImg(int x, int y)
+{
+    canvas->newImage(x,y);
 }

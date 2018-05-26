@@ -89,6 +89,18 @@ void Canvas::copyImage(QImage source)
     im.convertToFormat(QImage::Format_RGB32);
 }
 
+void Canvas::resizeImage( int x, int y)
+{
+    if ( (x <= 0) && (y <= 0)){
+        qDebug("x lub y muszą być dodatnią liczbą");
+    } else
+    {
+        copyImage(image);
+        image = im.scaled(x, y, Qt::KeepAspectRatio);
+        update();
+    }
+}
+
 void Canvas::convert2Mono()
 {
     QColor rgb;

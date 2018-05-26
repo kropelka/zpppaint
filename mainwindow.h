@@ -33,7 +33,7 @@ private:
     QActionGroup *toolGroup;
 
     QMenu *editMenu;
-    QAction *edgeAct, *monoAct;
+    QAction *edgeAct, *monoAct, *scaleAct;
 
     void createMenu();
     void createToolbar();
@@ -43,6 +43,8 @@ private:
 private slots:
     void open();
     void newFile();
+    void createImg(int x, int y);
+    void scaleImg();
     void edgeDetect();
     void Mono();
 };
