@@ -2,6 +2,7 @@
 #include "pencil.h"
 #include <iostream>
 
+//test Krol
 
 Canvas::Canvas(QWidget *parent)
 {
