@@ -22,6 +22,7 @@ public:
     void findMin();
     void scaleValues(bool mono);
     void convert2Mono();
+    void convert2FastMono();
     void edgeDetection();
     void setCurrentTool(Tool *tool);
 

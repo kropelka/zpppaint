@@ -62,11 +62,14 @@ void MainWindow::createMenu()
     editMenu = menuBar()->addMenu("&Edytuj");
     edgeAct = new QAction("Wykryj krawędzie",this);
     monoAct = new QAction("Konwersja monochromatyczna",this);
+    fastMonoAct = new QAction("Szybka konwersja monochromatyczna",this);
     editMenu->addAction(edgeAct);
     editMenu->addAction(monoAct);
+    editMenu->addAction(fastMonoAct);
 
     connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
     connect(monoAct, &QAction::triggered, this, &MainWindow::Mono);
+    connect(fastMonoAct, &QAction::triggered, this, &MainWindow::FastMono);
 
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
@@ -94,6 +97,11 @@ void MainWindow::edgeDetect()
 void MainWindow::Mono()
 {
     canvas->scaleValues(true);
+}
+
+void MainWindow::FastMono()
+{
+    canvas->convert2FastMono();
 }
 
 void MainWindow::open()
