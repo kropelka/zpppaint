@@ -277,16 +277,20 @@ void Canvas::mixerMonoKolor()
     copyImage(image);
 
     double u=0.5; // st. udzialu obrazu kolor do mono - param z okna dialog
+    double setr=0,
+           setg=1,
+           setb=1;
+
     for(unsigned int i = 0; i < im.width(); i++){
         for(unsigned int j = 0; j < im.height(); j++){
             rgb = image.pixelColor(i,j);
             r = rgb.red();
             g = rgb.green();
             b = rgb.blue();
-            grey = (r+g+b)/3;
-            r2 = (r*u + grey*(1-u))/2;
-            g2 = (g*u + grey*(1-u))/2;
-            b2 = (b*u + grey*(1-u))/2;
+            grey = (r*setr+g*setg+b*setb)/3;
+            r2 = (r*u*setr + grey*(1-u))/2;
+            g2 = (g*u*setg + grey*(1-u))/2;
+            b2 = (b*u*setb + grey*(1-u))/2;
             color = image.pixelColor(i,j);
             color.setRgb(r2,g2,b2);
             image.setPixelColor(i,j,color);
