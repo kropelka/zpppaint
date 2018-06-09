@@ -24,6 +24,7 @@ public:
     void convert2Mono();
     void convert2FastMono();
     void edgeDetection();
+    void mixerMonoKolor();
     void setCurrentTool(Tool *tool);
 
 protected:

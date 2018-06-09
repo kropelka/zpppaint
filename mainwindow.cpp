@@ -63,13 +63,16 @@ void MainWindow::createMenu()
     edgeAct = new QAction("Wykryj krawędzie",this);
     monoAct = new QAction("Konwersja monochromatyczna",this);
     fastMonoAct = new QAction("Szybka konwersja monochromatyczna",this);
+    mixerMonoKolorAct = new QAction("Miksowanie koloru i monochromatycznosci");
     editMenu->addAction(edgeAct);
     editMenu->addAction(monoAct);
     editMenu->addAction(fastMonoAct);
+    editMenu->addAction(mixerMonoKolorAct);
 
     connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
     connect(monoAct, &QAction::triggered, this, &MainWindow::Mono);
     connect(fastMonoAct, &QAction::triggered, this, &MainWindow::FastMono);
+    connect(mixerMonoKolorAct, &QAction::triggered, this, &MainWindow::MonoKolor);
 
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
@@ -103,6 +106,12 @@ void MainWindow::FastMono()
 {
     canvas->convert2FastMono();
 }
+
+void MainWindow::MonoKolor()
+{
+    canvas->mixerMonoKolor();
+}
+
 
 void MainWindow::open()
 {

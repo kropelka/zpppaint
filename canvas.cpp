@@ -269,6 +269,32 @@ void Canvas::edgeDetection()
     imOut = tmpImage;
 }
 
+void Canvas::mixerMonoKolor()
+{
+    QColor rgb,rgb2,color;
+    double r=0,g=0,b=0,r2=0,g2=0,b2=0,grey=0;
+
+    copyImage(image);
+
+    double u=0.5; // st. udzialu obrazu kolor do mono - param z okna dialog
+    for(unsigned int i = 0; i < im.width(); i++){
+        for(unsigned int j = 0; j < im.height(); j++){
+            rgb = image.pixelColor(i,j);
+            r = rgb.red();
+            g = rgb.green();
+            b = rgb.blue();
+            grey = (r+g+b)/3;
+            r2 = (r*u + grey*(1-u))/2;
+            g2 = (g*u + grey*(1-u))/2;
+            b2 = (b*u + grey*(1-u))/2;
+            color = image.pixelColor(i,j);
+            color.setRgb(r2,g2,b2);
+            image.setPixelColor(i,j,color);
+        }
+    }
+update();
+}
+
 void Canvas::setCurrentTool(Tool *tool)
 {
     currentTool = tool;
