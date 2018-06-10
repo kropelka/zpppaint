@@ -64,15 +64,18 @@ void MainWindow::createMenu()
     monoAct = new QAction("Konwersja monochromatyczna",this);
     fastMonoAct = new QAction("Szybka konwersja monochromatyczna",this);
     mixerMonoKolorAct = new QAction("Miksowanie koloru i monochromatycznosci");
+    ThresholdAct = new QAction("Progowanie");
     editMenu->addAction(edgeAct);
     editMenu->addAction(monoAct);
     editMenu->addAction(fastMonoAct);
     editMenu->addAction(mixerMonoKolorAct);
+    editMenu->addAction(ThresholdAct);
 
     connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
     connect(monoAct, &QAction::triggered, this, &MainWindow::Mono);
     connect(fastMonoAct, &QAction::triggered, this, &MainWindow::FastMono);
     connect(mixerMonoKolorAct, &QAction::triggered, this, &MainWindow::MonoKolor);
+    connect(ThresholdAct, &QAction::triggered, this, &MainWindow::Threshold);
 
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
@@ -110,6 +113,11 @@ void MainWindow::FastMono()
 void MainWindow::MonoKolor()
 {
     canvas->mixerMonoKolor();
+}
+
+void MainWindow::Threshold()
+{
+    canvas->Thresholding();
 }
 
 

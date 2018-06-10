@@ -25,6 +25,7 @@ public:
     void convert2FastMono();
     void edgeDetection();
     void mixerMonoKolor();
+    void Thresholding();
     void setCurrentTool(Tool *tool);
 
 protected:
