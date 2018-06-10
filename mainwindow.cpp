@@ -64,18 +64,28 @@ void MainWindow::createMenu()
     monoAct = new QAction("Konwersja monochromatyczna",this);
     fastMonoAct = new QAction("Szybka konwersja monochromatyczna",this);
     mixerMonoKolorAct = new QAction("Miksowanie koloru i monochromatycznosci");
+    SettColorAct = new QAction("Wybor skladowej koloru");
+    InverseColorAct = new QAction("Inwersja kolorow");
+
+
     ThresholdAct = new QAction("Progowanie");
     editMenu->addAction(edgeAct);
     editMenu->addAction(monoAct);
     editMenu->addAction(fastMonoAct);
     editMenu->addAction(mixerMonoKolorAct);
     editMenu->addAction(ThresholdAct);
+    editMenu->addAction(SettColorAct);
+    editMenu->addAction(InverseColorAct);
+
 
     connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
     connect(monoAct, &QAction::triggered, this, &MainWindow::Mono);
     connect(fastMonoAct, &QAction::triggered, this, &MainWindow::FastMono);
     connect(mixerMonoKolorAct, &QAction::triggered, this, &MainWindow::MonoKolor);
     connect(ThresholdAct, &QAction::triggered, this, &MainWindow::Threshold);
+    connect(SettColorAct, &QAction::triggered, this, &MainWindow::SettColor);
+    connect(InverseColorAct, &QAction::triggered, this, &MainWindow::InverseColor);
+
 
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
 }
@@ -120,6 +130,15 @@ void MainWindow::Threshold()
     canvas->Thresholding();
 }
 
+void MainWindow::SettColor()
+{
+    canvas->SettingColor();
+}
+
+void MainWindow::InverseColor()
+{
+    canvas->InversingColor();
+}
 
 void MainWindow::open()
 {
