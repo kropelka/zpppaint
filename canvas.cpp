@@ -117,9 +117,9 @@ void Canvas::convert2FastMono()
         uchar* scan = image.scanLine(i);
         for (int j = 0; j < image.width(); j++) {
             QRgb* rgbpixel = reinterpret_cast<QRgb*>(scan + j*4);
-            double gray = qGray(*rgbpixel);
-            double u=1.25; // do pobrania z okna dialogowego
-            double ugray = gray * u;
+            int gray = qGray(*rgbpixel);
+            int u=1.5;
+            int ugray = gray * u;
             if (ugray>255){ugray=255;}
             *rgbpixel = QColor(ugray, ugray, ugray).rgb();
         }
