@@ -26,8 +26,6 @@ public:
     void edgeDetection();
     void mixerMonoKolor();
     void Thresholding();
-    void SettingColor();
-    void InversingColor();
     void setCurrentTool(Tool *tool);
 
 protected:
