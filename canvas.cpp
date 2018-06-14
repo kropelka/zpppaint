@@ -1,6 +1,7 @@
 ﻿#include "canvas.h"
 #include "pencil.h"
 #include <iostream>
+#include <math.h>
 
 
 Canvas::Canvas(QWidget *parent)
@@ -270,11 +271,9 @@ void Canvas::convert2FastMono()
     for (int i = 0; i < image.height(); i++) {
         uchar* scan = image.scanLine(i);
         for (int j = 0; j < image.width(); j++) {
-            QRgb* rgbpixel = reinterpret_cast<QRgb*>(scan + j*4);
-            double gray = qGray(*rgbpixel);
-            double u=1.25; // do pobrania z okna dialogowego
-            double ugray = gray * u; if (ugray>255){ugray=255;}
-            *rgbpixel = QColor(ugray, ugray, ugray).rgb();
+            QRgb* rgb = reinterpret_cast<QRgb*>(scan + j*4);
+            double gray = qGray(*rgb);
+            *rgb = QColor(gray, gray, gray).rgb();
         }
     }
     update();
@@ -283,13 +282,13 @@ void Canvas::convert2FastMono()
 void Canvas::mixerMonoKolor()
 {
     QColor rgb,rgb2,color;
-    double r=0,g=0,b=0,r2=0,g2=0,b2=0,grey=0;
+    double r,g,b,r2,g2,b2,grey;
 
     copyImage(image);
 
     double u=0.5; // st. udzialu obrazu kolor do mono - param z okna dialog
     double setr=1,
-           setg=5,
+           setg=1,
            setb=1; // do pobrania z okna dialogowego
 
     for(unsigned int i = 0; i < im.width(); i++){
@@ -305,7 +304,6 @@ void Canvas::mixerMonoKolor()
             r2 = (r*u + grey*(1-u))/2;
             g2 = (g*u + grey*(1-u))/2;
             b2 = (b*u + grey*(1-u))/2;
-            color = image.pixelColor(i,j);
             color.setRgb(r2,g2,b2);
             image.setPixelColor(i,j,color);
         }
@@ -316,7 +314,7 @@ update();
 void Canvas::Thresholding()
 {
     QColor rgb,color;
-    double r=0,g=0,b=0,grey=0;
+    double r,g,b,grey;
     double u=120; //param do pobrania z okna dialog
     copyImage(image);
 
@@ -328,7 +326,6 @@ void Canvas::Thresholding()
             b = rgb.blue();
             grey = 0.3*r+0.6*g+0.1*b;
             if (grey<u) {grey=0;} else {grey=255;}
-            color = image.pixelColor(i,j);
             color.setRgb(grey,grey,grey);
             image.setPixelColor(i,j,color);
         }
@@ -339,7 +336,7 @@ update();
 void Canvas::SettingColor()
 {
     QColor rgb,color;
-    double r=0,g=0,b=0;
+    double r,g,b;
     double setr=0,
            setg=0,
            setb=1; // do pobrania z okna dialogowego
@@ -355,7 +352,6 @@ void Canvas::SettingColor()
             r *= setr; if(r>255){r=255;}
             g *= setg; if(g>255){g=255;}
             b *= setb; if(b>255){b=255;}
-            color = image.pixelColor(i,j);
             color.setRgb(r,g,b);
             image.setPixelColor(i,j,color);
         }
@@ -366,7 +362,7 @@ update();
 void Canvas::InversingColor()
 {
     QColor rgb,color;
-    double r=0,g=0,b=0;
+    double r,g,b;
 
     copyImage(image);
 
@@ -379,7 +375,83 @@ void Canvas::InversingColor()
             r = 255-r;
             g = 255-g;
             b = 255-b;
-            color = image.pixelColor(i,j);
+            color.setRgb(r,g,b);
+            image.setPixelColor(i,j,color);
+        }
+    }
+update();
+}
+
+void Canvas::Brightness()
+{
+    QColor rgb,color;
+    double r,g,b;
+    int jasnosc = -50; // do pobrania z okna dialogowego
+   copyImage(image);
+
+    for(unsigned int i = 0; i < image.width(); i++){
+        for(unsigned int j = 0; j < image.height(); j++){
+            rgb = image.pixelColor(i,j);
+            r = rgb.red();
+            g = rgb.green();
+            b = rgb.blue();
+            r += jasnosc ;if(r>255){r=255;} if(r<0){r=0;}
+            g += jasnosc ;if(g>255){g=255;} if(g<0){g=0;}
+            b += jasnosc ;if(b>255){b=255;} if(b<0){b=0;}
+            color.setRgb(r,g,b);
+            image.setPixelColor(i,j,color);
+        }
+    }
+update();
+}
+
+void Canvas::Contrast()
+{
+    QColor rgb,color;
+    double r,g,b;
+    double kontrast = 8; //do pobrania z okna dialog
+   copyImage(image);
+
+    for(unsigned int i = 0; i < image.width(); i++){
+        for(unsigned int j = 0; j < image.height(); j++){
+            rgb = image.pixelColor(i,j);
+            r = rgb.red();
+            g = rgb.green();
+            b = rgb.blue();
+            r -= 128 ;if(r<0){r=0;}
+            g -= 128 ;if(g<0){g=0;}
+            b -= 128 ;if(b<0){b=0;}
+            r *= kontrast;
+            g *= kontrast;
+            b *= kontrast;
+            r += 128 ;if(r>255){r=255;}
+            g += 128 ;if(g>255){g=255;}
+            b += 128 ;if(b>255){b=255;}
+            color.setRgb(r,g,b);
+            image.setPixelColor(i,j,color);
+        }
+    }
+update();
+}
+
+void Canvas::Gamma()
+{
+    QColor rgb,color;
+    double r,g,b;
+    double gamma = 2.2; //do pobrania z okna dialog
+   copyImage(image);
+
+    for(unsigned int i = 0; i < image.width(); i++){
+        for(unsigned int j = 0; j <= image.height(); j++){
+            rgb = image.pixelColor(i,j);
+            r = rgb.red();
+            g = rgb.green();
+            b = rgb.blue();
+
+            r = 255 * pow(r / 255.0, 1.0 / gamma);
+            g = 255 * pow(g / 255.0, 1.0 / gamma);
+            b = 255 * pow(b / 255.0, 1.0 / gamma);
+
             color.setRgb(r,g,b);
             image.setPixelColor(i,j,color);
         }

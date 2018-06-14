@@ -68,6 +68,11 @@ void MainWindow::createMenu()
     SettColorAct = new QAction("Wybor skladowej koloru");
     InverseColorAct = new QAction("Inwersja kolorow");
     ThresholdAct = new QAction("Progowanie");
+    BrightAct = new QAction("Zmiana jasnosci");
+    ContrastAct = new QAction("Zmiana kontrastu");
+    GammaAct = new QAction("Zmiana gammy");
+
+
     editMenu->addAction(edgeAct);
     editMenu->addAction(monoAct);
     editMenu->addAction(scaleAct);
@@ -76,6 +81,9 @@ void MainWindow::createMenu()
     editMenu->addAction(ThresholdAct);
     editMenu->addAction(SettColorAct);
     editMenu->addAction(InverseColorAct);
+    editMenu->addAction(BrightAct);
+    editMenu->addAction(ContrastAct);
+    editMenu->addAction(GammaAct);
 
     connect(edgeAct, &QAction::triggered, this, &MainWindow::edgeDetect);
     connect(monoAct, &QAction::triggered, this, &MainWindow::Mono);
@@ -85,6 +93,9 @@ void MainWindow::createMenu()
     connect(ThresholdAct, &QAction::triggered, this, &MainWindow::Threshold);
     connect(SettColorAct, &QAction::triggered, this, &MainWindow::SettColor);
     connect(InverseColorAct, &QAction::triggered, this, &MainWindow::InverseColor);
+    connect(BrightAct, &QAction::triggered, this, &MainWindow::Bright);
+    connect(ContrastAct, &QAction::triggered, this, &MainWindow::Contrasst);
+    connect(GammaAct, &QAction::triggered, this, &MainWindow::Gammma);
 
 
     canvas->newImage(600,600); //przy starcie aplikacji wyrysowuje pustą białą kartkę
@@ -167,4 +178,19 @@ void MainWindow::SettColor()
 void MainWindow::InverseColor()
 {
     canvas->InversingColor();
+}
+
+void MainWindow::Bright()
+{
+    canvas->Brightness();
+}
+
+void MainWindow::Contrasst()
+{
+    canvas->Contrast();
+}
+
+void MainWindow::Gammma()
+{
+    canvas->Gamma();
 }
