@@ -305,7 +305,7 @@ void Canvas::Thresholding()
 {
     QColor rgb,color;
     double r=0,g=0,b=0,grey=0;
-
+    double u=120; //param do pobrania z okna dialog
     copyImage(image);
 
     for(unsigned int i = 0; i < image.width(); i++){
@@ -315,7 +315,7 @@ void Canvas::Thresholding()
             g = rgb.green();
             b = rgb.blue();
             grey = 0.3*r+0.6*g+0.1*b;
-            if (grey<125) {grey=0;} else {grey=255;}
+            if (grey<u) {grey=0;} else {grey=255;}
             color = image.pixelColor(i,j);
             color.setRgb(grey,grey,grey);
             image.setPixelColor(i,j,color);
