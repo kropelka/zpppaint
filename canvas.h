@@ -29,6 +29,9 @@ public:
     void Thresholding();
     void SettingColor();
     void InversingColor();
+    void Brightness();
+    void Contrast();
+    void Gamma();
     void setCurrentTool(Tool *tool);
 
 protected:
