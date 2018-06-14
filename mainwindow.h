@@ -33,7 +33,7 @@ private:
     QActionGroup *toolGroup;
 
     QMenu *editMenu;
-    QAction *edgeAct, *monoAct, *fastMonoAct;
+    QAction *edgeAct, *monoAct;
 
     void createMenu();
     void createToolbar();
@@ -45,7 +45,6 @@ private slots:
     void newFile();
     void edgeDetect();
     void Mono();
-    void FastMono();
 };
 
 #endif // MAINWINDOW_H

@@ -2,6 +2,7 @@
 #include "pencil.h"
 #include <iostream>
 
+//test Krol
 
 Canvas::Canvas(QWidget *parent)
 {
@@ -108,23 +109,6 @@ void Canvas::convert2Mono()
         }
     }
 
-}
-
-void Canvas::convert2FastMono()
-{
-    copyImage(image);
-    for (int i = 0; i < image.height(); i++) {
-        uchar* scan = image.scanLine(i);
-        for (int j = 0; j < image.width(); j++) {
-            QRgb* rgbpixel = reinterpret_cast<QRgb*>(scan + j*4);
-            int gray = qGray(*rgbpixel);
-            int u=1.5;
-            int ugray = gray * u;
-            if (ugray>255){ugray=255;}
-            *rgbpixel = QColor(ugray, ugray, ugray).rgb();
-        }
-    }
-    update();
 }
 
 void Canvas::findMax()
