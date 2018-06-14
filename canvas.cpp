@@ -299,30 +299,6 @@ void Canvas::mixerMonoKolor()
 update();
 }
 
-void Canvas::Thresholding()
-{
-    QColor rgb,color;
-    double r=0,g=0,b=0,grey=0;
-
-    copyImage(image);
-
-    for(unsigned int i = 0; i < image.width(); i++){
-        for(unsigned int j = 0; j < image.height(); j++){
-            rgb = image.pixelColor(i,j);
-            r = rgb.red();
-            g = rgb.green();
-            b = rgb.blue();
-            grey = (r+g+b)/3;
-            if (grey<125) {grey=0;} else {grey=255;}
-            color = image.pixelColor(i,j);
-            color.setRgb(grey,grey,grey);
-            image.setPixelColor(i,j,color);
-        }
-    }
-update();
-}
-
-
 void Canvas::setCurrentTool(Tool *tool)
 {
     currentTool = tool;

@@ -33,7 +33,7 @@ private:
     QActionGroup *toolGroup;
 
     QMenu *editMenu;
-    QAction *edgeAct, *monoAct, *fastMonoAct, *mixerMonoKolorAct, *ThresholdAct;
+    QAction *edgeAct, *monoAct, *fastMonoAct, *mixerMonoKolorAct;
 
     void createMenu();
     void createToolbar();
@@ -47,7 +47,6 @@ private slots:
     void Mono();
     void FastMono();
     void MonoKolor();
-    void Threshold();
 };
 
 #endif // MAINWINDOW_H
