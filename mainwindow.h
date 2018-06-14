@@ -33,7 +33,7 @@ private:
     QActionGroup *toolGroup;
 
     QMenu *editMenu;
-    QAction *edgeAct, *monoAct, *scaleAct;
+    QAction *edgeAct, *monoAct, *scaleAct, *fastMonoAct, *mixerMonoKolorAct, *ThresholdAct, *SettColorAct, *InverseColorAct;
 
     void createMenu();
     void createToolbar();
@@ -47,6 +47,11 @@ private slots:
     void scaleImg();
     void edgeDetect();
     void Mono();
+    void FastMono();
+    void MonoKolor();
+    void Threshold();
+    void SettColor();
+    void InverseColor();
 };
 
 #endif // MAINWINDOW_H

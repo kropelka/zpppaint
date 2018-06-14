@@ -24,6 +24,11 @@ public:
     void scaleValues(bool mono);
     void convert2Mono();
     void edgeDetection();
+    void convert2FastMono();
+    void mixerMonoKolor();
+    void Thresholding();
+    void SettingColor();
+    void InversingColor();
     void setCurrentTool(Tool *tool);
 
 protected:
