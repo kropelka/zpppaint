@@ -32,8 +32,7 @@ SOURCES += \
     newfiledialog.cpp \
     pencil.cpp \
     brush.cpp \
-    bresenham.cpp \
-    mixerdialog.cpp
+    bresenham.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,12 +42,10 @@ HEADERS += \
     newfiledialog.h \
     pencil.h \
     brush.h \
-    bresenham.h \
-    mixerdialog.h
+    bresenham.h
 
 FORMS += \
-        mainwindow.ui \
-    mixerdialog.ui
+        mainwindow.ui
 
 RESOURCES += \
     zppaint.qrc

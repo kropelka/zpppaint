@@ -9,7 +9,6 @@
 #include "newfiledialog.h"
 #include "pencil.h"
 #include "brush.h"
-#include "mixerdialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -163,9 +162,6 @@ void MainWindow::FastMono()
 
 void MainWindow::MonoKolor()
 {
-    MixerDialog mixerDialog;
-    mixerDialog.setModal(true);
-    mixerDialog.exec();
     canvas->mixerMonoKolor();
 }
 
