@@ -165,8 +165,12 @@ void MainWindow::MonoKolor()
 {
     MixerDialog mixerDialog;
     mixerDialog.setModal(true);
-    mixerDialog.exec();
-    canvas->mixerMonoKolor();
+    int dialogState = mixerDialog.exec();
+
+    if(dialogState==1){
+        canvas->mixerMonoKolor();
+    }
+
 }
 
 void MainWindow::Threshold()
