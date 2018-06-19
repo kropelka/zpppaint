@@ -12,3 +12,8 @@ MixerDialog::~MixerDialog()
 {
     delete ui;
 }
+
+void MixerDialog::on_buttonBox_accepted()
+{
+
+}
