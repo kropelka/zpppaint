@@ -165,11 +165,10 @@ void MainWindow::MonoKolor()
 {
     MixerDialog mixerDialog;
     mixerDialog.setModal(true);
-    int dialogState = mixerDialog.exec();
 
-    if(dialogState==1){
+    if(mixerDialog.exec()==1)
         canvas->mixerMonoKolor();
-    }
+
 
 }
 
