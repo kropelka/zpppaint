@@ -14,7 +14,8 @@ class MixerDialog : public QDialog
 public:
     explicit MixerDialog(QWidget *parent = 0);
     ~MixerDialog();
-
+public slots:
+    int setR();
 private:
     Ui::MixerDialog *ui;
 };

@@ -13,3 +13,7 @@ MixerDialog::~MixerDialog()
     delete ui;
 }
 
+int MixerDialog::setR()
+{
+   return ui->redSlider->value();
+}
