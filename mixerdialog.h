@@ -15,7 +15,11 @@ public:
     explicit MixerDialog(QWidget *parent = 0);
     ~MixerDialog();
 
+private slots:
 
+
+
+    void on_buttonBox_accepted();
 
 private:
     Ui::MixerDialog *ui;
