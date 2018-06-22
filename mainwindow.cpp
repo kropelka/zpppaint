@@ -37,15 +37,12 @@ void MainWindow::createMenu()
     newAct = new QAction("&Nowy", this);
     openAct = new QAction("&Otwórz", this);
     openAct->setIcon(QIcon::fromTheme("document-open"));
-    saveAct = new QAction("Zapisz", this);
 
     connect(newAct, &QAction::triggered, this, &MainWindow::newFile);
     connect(openAct, &QAction::triggered, this, &MainWindow::open);
-    connect(saveAct, &QAction::triggered, this, &MainWindow::save);
 
     fileMenu->addAction(openAct);
     fileMenu->addAction(newAct);
-    fileMenu->addAction(saveAct);
 
     /* zanim zrobi się ładny przybornik, to opcja wyboru narzędzia w menu */
     toolMenu = menuBar()->addMenu("&Narzędzie");
@@ -143,16 +140,10 @@ void MainWindow::open()
     }
 }
 
-void MainWindow::save()
-{
-    canvas->saveImage();
-}
-
 void MainWindow::newFile()
 {
-    //NewFileDialog dialog;
-    //dialog.exec();
-    canvas->newImage(600,600);
+    NewFileDialog dialog;
+    dialog.exec();
 }
 
 void MainWindow::scaleImg()

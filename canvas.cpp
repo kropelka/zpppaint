@@ -2,8 +2,6 @@
 #include "pencil.h"
 #include <iostream>
 #include <math.h>
-#include <QFileDialog>
-
 
 
 Canvas::Canvas(QWidget *parent)
@@ -14,13 +12,6 @@ Canvas::Canvas(QWidget *parent)
 void Canvas::loadImage(const QString &filename)
 {
     image.load(filename);
-}
-
-void Canvas::saveImage()
-{
-    QString filename = QFileDialog::getSaveFileName(this, "Zapis obraz", ".", "*.bmp");
-    QPixmap pixMap = QPixmap::fromImage(image);
-    pixMap.save(filename);
 }
 
 void Canvas::newImage(int width, int height)
