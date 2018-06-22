@@ -170,16 +170,15 @@ void MainWindow::FastMono()
     canvas->convert2FastMono();
 }
 
-void MainWindow::MonoKolor()
+void MainWindow::MonoKolor(int r)
 {
     MixerDialog mixerDialog;
     mixerDialog.setModal(true);
-    int dialogState = mixerDialog.exec();
 
-    if(dialogState==1){
-        canvas->mixerMonoKolor();
+    if(mixerDialog.exec()==1){
+        r = mixerDialog.setR();
+        canvas->mixerMonoKolor(r);
     }
-
 }
 
 void MainWindow::Threshold()

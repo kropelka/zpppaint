@@ -26,7 +26,7 @@ public:
     void convert2Mono();
     void edgeDetection();
     void convert2FastMono();
-    void mixerMonoKolor();
+    void mixerMonoKolor(int setr);
     void Thresholding();
     void SettingColor();
     void InversingColor();
