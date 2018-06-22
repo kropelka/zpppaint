@@ -42,6 +42,7 @@ private:
     void selectPencil();
 private slots:
     void open();
+    void save();
     void newFile();
     void createImg(int x, int y);
     void scaleImg();
