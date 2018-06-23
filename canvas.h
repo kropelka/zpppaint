@@ -27,12 +27,12 @@ public:
     void edgeDetection();
     void convert2FastMono();
     void mixerMonoKolor(int setr, int setg, int setb, int setu);
-    void Thresholding();
-    void SettingColor();
+    void thresholding(int u);
+    void SettingColor(int setr, int setg, int setb);
     void InversingColor();
-    void Brightness();
-    void Contrast();
-    void Gamma();
+    void Brightness(int jasnosc);
+    void Contrast(int kontrast);
+    void Gamma(int gamma);
     void setCurrentTool(Tool *tool);
 
 protected:

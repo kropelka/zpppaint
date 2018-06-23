@@ -10,6 +10,11 @@
 #include "pencil.h"
 #include "brush.h"
 #include "mixerdialog.h"
+#include "thresholddialoh.h"
+#include "selectcolordialog.h"
+#include "brightnessdialog.h"
+#include "contrastdialog.h"
+#include "gammadialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -188,12 +193,30 @@ void MainWindow::MonoKolor()
 
 void MainWindow::Threshold()
 {
-    canvas->Thresholding();
+    ThresholdDialoh threshhold;
+    threshhold.setModal(true);
+
+    int u;
+
+    if(threshhold.exec()==1){
+        u = threshhold.setU();
+        canvas->thresholding(u);
+    }
 }
 
 void MainWindow::SettColor()
 {
-    canvas->SettingColor();
+    selectColorDialog select;
+    select.setModal(true);
+
+    int r,g,b;
+
+    if(select.exec()==1){
+        r = select.setR();
+        g = select.setG();
+        b = select.setB();
+        canvas->SettingColor(r,g,b);
+    }
 }
 
 void MainWindow::InverseColor()
@@ -203,15 +226,39 @@ void MainWindow::InverseColor()
 
 void MainWindow::Bright()
 {
-    canvas->Brightness();
+    BrightnessDialog brightness;
+    brightness.setModal(true);
+
+    int br;
+
+    if(brightness.exec()==1){
+        br = brightness.setBr();
+        canvas->Brightness(br);
+    }
 }
 
 void MainWindow::Contrasst()
 {
-    canvas->Contrast();
+    ContrastDialog contrast;
+    contrast.setModal(true);
+
+    int k;
+
+    if(contrast.exec()==1){
+        k = contrast.setK();
+        canvas->Contrast(k);
+    }
 }
 
 void MainWindow::Gammma()
 {
-    canvas->Gamma();
+    GammaDialog gamma;
+    gamma.setModal(true);
+
+    int gam;
+
+    if(gamma.exec()==1){
+        gam = gamma.setGam();
+        canvas->Gamma(gam);
+    }
 }

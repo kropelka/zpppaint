@@ -295,7 +295,7 @@ void Canvas::mixerMonoKolor(int setr,int setg,int setb,int setu)
 
     copyImage(image);
 
-    double u=setu*0.01; // st. udzialu obrazu kolor do mono - param z okna dialog
+    double u=setu*0.01;
 
 
     for(unsigned int i = 0; i < im.width(); i++){
@@ -318,11 +318,10 @@ void Canvas::mixerMonoKolor(int setr,int setg,int setb,int setu)
 update();
 }
 
-void Canvas::Thresholding()
+void Canvas::thresholding(int u)
 {
     QColor rgb,color;
     double r,g,b,grey;
-    double u=120; //param do pobrania z okna dialog
     copyImage(image);
 
     for(unsigned int i = 0; i < image.width(); i++){
@@ -340,13 +339,11 @@ void Canvas::Thresholding()
 update();
 }
 
-void Canvas::SettingColor()
+void Canvas::SettingColor(int setr, int setg, int setb)
 {
     QColor rgb,color;
     double r,g,b;
-    double setr=0,
-           setg=0,
-           setb=1; // do pobrania z okna dialogowego
+
 
     copyImage(image);
 
@@ -356,9 +353,9 @@ void Canvas::SettingColor()
             r = rgb.red();
             g = rgb.green();
             b = rgb.blue();
-            r *= setr; if(r>255){r=255;}
-            g *= setg; if(g>255){g=255;}
-            b *= setb; if(b>255){b=255;}
+            r *= setr*0.01; if(r>255){r=255;}
+            g *= setg*0.01; if(g>255){g=255;}
+            b *= setb*0.01; if(b>255){b=255;}
             color.setRgb(r,g,b);
             image.setPixelColor(i,j,color);
         }
@@ -389,11 +386,11 @@ void Canvas::InversingColor()
 update();
 }
 
-void Canvas::Brightness()
+void Canvas::Brightness(int jasnosc)
 {
     QColor rgb,color;
     double r,g,b;
-    int jasnosc = -50; // do pobrania z okna dialogowego
+    jasnosc *= 2.55; // do pobrania z okna dialogowego
    copyImage(image);
 
     for(unsigned int i = 0; i < image.width(); i++){
@@ -412,11 +409,11 @@ void Canvas::Brightness()
 update();
 }
 
-void Canvas::Contrast()
+void Canvas::Contrast(int kontrast)
 {
     QColor rgb,color;
     double r,g,b;
-    double kontrast = 8; //do pobrania z okna dialog
+    kontrast *= 0.1; //do pobrania z okna dialog
    copyImage(image);
 
     for(unsigned int i = 0; i < image.width(); i++){
@@ -441,11 +438,11 @@ void Canvas::Contrast()
 update();
 }
 
-void Canvas::Gamma()
+void Canvas::Gamma(int gamma)
 {
     QColor rgb,color;
     double r,g,b;
-    double gamma = 2.2; //do pobrania z okna dialog
+    gamma*=0.5; //do pobrania z okna dialog
    copyImage(image);
 
     for(unsigned int i = 0; i < image.width(); i++){
@@ -454,11 +451,11 @@ void Canvas::Gamma()
             r = rgb.red();
             g = rgb.green();
             b = rgb.blue();
-
-            r = 255 * pow(r / 255.0, 1.0 / gamma);
-            g = 255 * pow(g / 255.0, 1.0 / gamma);
-            b = 255 * pow(b / 255.0, 1.0 / gamma);
-
+            if(gamma>0){
+                r = 255 * pow(r / 255.0, 1.0 / gamma);
+                g = 255 * pow(g / 255.0, 1.0 / gamma);
+                b = 255 * pow(b / 255.0, 1.0 / gamma);
+            }
             color.setRgb(r,g,b);
             image.setPixelColor(i,j,color);
         }

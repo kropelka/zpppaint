@@ -33,7 +33,12 @@ SOURCES += \
     pencil.cpp \
     brush.cpp \
     bresenham.cpp \
-    mixerdialog.cpp
+    mixerdialog.cpp \
+    thresholddialoh.cpp \
+    selectcolordialog.cpp \
+    brightnessdialog.cpp \
+    contrastdialog.cpp \
+    gammadialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,11 +49,21 @@ HEADERS += \
     pencil.h \
     brush.h \
     bresenham.h \
-    mixerdialog.h
+    mixerdialog.h \
+    thresholddialoh.h \
+    selectcolordialog.h \
+    brightnessdialog.h \
+    contrastdialog.h \
+    gammadialog.h
 
 FORMS += \
         mainwindow.ui \
-    mixerdialog.ui
+    mixerdialog.ui \
+    thresholddialoh.ui \
+    selectcolordialog.ui \
+    brightnessdialog.ui \
+    contrastdialog.ui \
+    gammadialog.ui
 
 RESOURCES += \
     zppaint.qrc
