@@ -323,7 +323,7 @@ void Canvas::thresholding(int u)
     QColor rgb,color;
     double r,g,b,grey;
     copyImage(image);
-
+    u *=2.55;
     for(unsigned int i = 0; i < image.width(); i++){
         for(unsigned int j = 0; j < image.height(); j++){
             rgb = image.pixelColor(i,j);
