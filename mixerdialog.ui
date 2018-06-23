@@ -90,6 +90,9 @@
            </item>
            <item>
             <widget class="QSlider" name="blueSlider">
+             <property name="maximum">
+              <number>100</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -97,6 +100,9 @@
            </item>
            <item>
             <widget class="QSlider" name="partSlider">
+             <property name="maximum">
+              <number>100</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -138,7 +144,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QLabel" name="label_2">

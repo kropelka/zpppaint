@@ -17,3 +17,18 @@ int MixerDialog::setR()
 {
    return ui->redSlider->value();
 }
+
+int MixerDialog::setG()
+{
+   return ui->greenSlider->value();
+}
+
+int MixerDialog::setB()
+{
+   return ui->blueSlider->value();
+}
+
+int MixerDialog::setU()
+{
+   return ui->partSlider->value();
+}

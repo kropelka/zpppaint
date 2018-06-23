@@ -49,7 +49,7 @@ private slots:
     void edgeDetect();
     void Mono();
     void FastMono();
-    void MonoKolor(int r);
+    void MonoKolor();
     void Threshold();
     void SettColor();
     void InverseColor();

@@ -16,6 +16,9 @@ public:
     ~MixerDialog();
 public slots:
     int setR();
+    int setG();
+    int setB();
+    int setU();
 private:
     Ui::MixerDialog *ui;
 };

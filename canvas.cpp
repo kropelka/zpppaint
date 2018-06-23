@@ -288,16 +288,15 @@ void Canvas::convert2FastMono()
     update();
 }
 
-void Canvas::mixerMonoKolor(int setr)
+void Canvas::mixerMonoKolor(int setr,int setg,int setb,int setu)
 {
     QColor rgb,rgb2,color;
     double r,g,b,r2,g2,b2,grey;
 
     copyImage(image);
 
-    double u=0.5, // st. udzialu obrazu kolor do mono - param z okna dialog
-           setg=1,
-           setb=1; // do pobrania z okna dialogowego
+    double u=setu*0.01; // st. udzialu obrazu kolor do mono - param z okna dialog
+
 
     for(unsigned int i = 0; i < im.width(); i++){
         for(unsigned int j = 0; j < im.height(); j++){
@@ -306,8 +305,8 @@ void Canvas::mixerMonoKolor(int setr)
             g = rgb.green();
             b = rgb.blue();
             r *= setr*0.01; if(r>255){r=255;}
-            g *= setg; if(g>255){g=255;}
-            b *= setb; if(b>255){b=255;}
+            g *= setg*0.01; if(g>255){g=255;}
+            b *= setb*0.01; if(b>255){b=255;}
             grey = 0.3*r+0.6*g+0.1*b;
             r2 = (r*u + grey*(1-u))/2;
             g2 = (g*u + grey*(1-u))/2;

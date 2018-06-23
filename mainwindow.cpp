@@ -170,14 +170,19 @@ void MainWindow::FastMono()
     canvas->convert2FastMono();
 }
 
-void MainWindow::MonoKolor(int r)
+void MainWindow::MonoKolor()
 {
     MixerDialog mixerDialog;
     mixerDialog.setModal(true);
 
+    int r,g,b,u;
+
     if(mixerDialog.exec()==1){
         r = mixerDialog.setR();
-        canvas->mixerMonoKolor(r);
+        g = mixerDialog.setG();
+        b = mixerDialog.setB();
+        u = mixerDialog.setU();
+        canvas->mixerMonoKolor(r,g,b,u);
     }
 }
 
