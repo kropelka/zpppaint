@@ -20,6 +20,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
+
 private:
     Toolbar toolbar;
     Canvas *canvas;
@@ -29,7 +31,7 @@ private:
     QAction *newAct, *openAct, *saveAct;
 
     QMenu *toolMenu;
-    QAction *pencilAct, *brushAct;
+    QAction *pencilAct, *brushAct, *colorAct, *fillAct, *pasteAct, *copyAct, *lineAct;
     QActionGroup *toolGroup;
 
     QMenu *editMenu;
@@ -40,6 +42,11 @@ private:
 
     void selectBrush();
     void selectPencil();
+    void selectColor();
+    void selectFill();
+    void selectPaste();
+    void selectCopy();
+    void selectLine();
 private slots:
     void open();
     void save();

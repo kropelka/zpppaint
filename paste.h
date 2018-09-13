@@ -1,14 +1,12 @@
-#ifndef BRUSH_H
-#define BRUSH_H
+#ifndef PASTE_H
+#define PASTE_H
 #include "tool.h"
 
-class Brush : public Tool
+class Paste : public Tool
 {
 public:
-    Brush();
     void draw(QImage &image, const QPoint& lastPoint, const QPoint& currentPoint) override;
-    void updateColor() override;
+    Paste();
 };
 
-
-#endif // BRUSH_H
+#endif // PASTE_H

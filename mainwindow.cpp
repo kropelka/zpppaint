@@ -15,6 +15,8 @@
 #include "brightnessdialog.h"
 #include "contrastdialog.h"
 #include "gammadialog.h"
+#include "fill.h"
+#include "clipcopy.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -29,11 +31,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
     createMenu();
     createToolbar();
+    canvas->colorPicker = &(toolbar.colorPicker);
 
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::selectColor()
+{
+    //canvas->getCurrentTool()->showColorDialog();
+}
+
+void MainWindow::selectFill()
+{
+    canvas->setCurrentTool(new Fill());
 }
 
 void MainWindow::createMenu()
@@ -51,22 +64,6 @@ void MainWindow::createMenu()
     fileMenu->addAction(openAct);
     fileMenu->addAction(newAct);
     fileMenu->addAction(saveAct);
-
-    /* zanim zrobi się ładny przybornik, to opcja wyboru narzędzia w menu */
-    toolMenu = menuBar()->addMenu("&Narzędzie");
-    pencilAct = new QAction("&Ołówek", this);
-    brushAct = new QAction("&Pędzel");
-    pencilAct->setCheckable(true);
-    brushAct->setCheckable(true);
-    toolMenu->addAction(pencilAct);
-    toolMenu->addAction(brushAct);
-    toolGroup = new QActionGroup(this);
-    toolGroup->addAction(pencilAct);
-    toolGroup->addAction(brushAct);
-    pencilAct->setChecked(true);
-
-    connect(pencilAct, &QAction::triggered, this, &MainWindow::selectPencil);
-    connect(brushAct, &QAction::triggered, this, &MainWindow::selectBrush);
 
     editMenu = menuBar()->addMenu("&Edytuj");
     edgeAct = new QAction("Wykryj krawędzie",this);
@@ -123,6 +120,38 @@ void MainWindow::selectBrush()
 void MainWindow::createToolbar()
 {
     addToolBar(toolbar.get());
+
+    pencilAct = toolbar.pencilAct;
+    brushAct = toolbar.brushAct;
+    fillAct = toolbar.fillAct;
+    pasteAct = toolbar.pasteAct;
+    copyAct = toolbar.copyAct;
+    lineAct = toolbar.lineAct;
+
+
+    connect(pencilAct, &QAction::triggered, this, &MainWindow::selectPencil);
+    connect(brushAct, &QAction::triggered, this, &MainWindow::selectBrush);
+    //connect(colorAct, &QAction::triggered, this, &MainWindow::selectColor);
+    connect(fillAct, &QAction::triggered, this, &MainWindow::selectFill);
+    connect(pasteAct, &QAction::triggered, this, &MainWindow::selectPaste);
+    connect(copyAct, &QAction::triggered, this, &MainWindow::selectCopy);
+    connect(lineAct, &QAction::triggered, this, &MainWindow::selectLine);
+
+}
+
+void MainWindow::selectCopy()
+{
+    canvas->setCurrentTool(new ClipCopy());
+}
+
+void MainWindow::selectLine()
+{
+    canvas->setCurrentTool(new Line());
+}
+
+void MainWindow::selectPaste()
+{
+    canvas->setCurrentTool(new Paste());
 }
 
 void MainWindow::edgeDetect()

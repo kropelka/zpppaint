@@ -38,7 +38,12 @@ SOURCES += \
     selectcolordialog.cpp \
     brightnessdialog.cpp \
     contrastdialog.cpp \
-    gammadialog.cpp
+    gammadialog.cpp \
+    fill.cpp \
+    colorpicker.cpp \
+    paste.cpp \
+    clipcopy.cpp \
+    line.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,7 +59,12 @@ HEADERS += \
     selectcolordialog.h \
     brightnessdialog.h \
     contrastdialog.h \
-    gammadialog.h
+    gammadialog.h \
+    fill.h \
+    colorpicker.h \
+    paste.h \
+    clipcopy.h \
+    line.h
 
 FORMS += \
         mainwindow.ui \
