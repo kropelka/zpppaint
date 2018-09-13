@@ -1,14 +1,12 @@
-#ifndef BRUSH_H
-#define BRUSH_H
+#ifndef LINE_H
+#define LINE_H
 #include "tool.h"
 
-class Brush : public Tool
+class Line : public Tool
 {
 public:
-    Brush();
     void draw(QImage &image, const QPoint& lastPoint, const QPoint& currentPoint) override;
-    void updateColor() override;
+    Line();
 };
 
-
-#endif // BRUSH_H
+#endif // LINE_H

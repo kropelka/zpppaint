@@ -3,7 +3,8 @@
 #include <iostream>
 #include <math.h>
 #include <QFileDialog>
-
+#include<QApplication>
+#include<QCursor>
 
 
 Canvas::Canvas(QWidget *parent)
@@ -59,15 +60,22 @@ void Canvas::paintEvent(QPaintEvent *event)
 
 void Canvas::mousePressEvent(QMouseEvent *event)
 {
+    currentTool->color = colorPicker->color;
     lastPoint = event->pos();
+    currentTool->startingPoint = lastPoint;
     currentlyDrawing = true;
+    QApplication::setOverrideCursor(QCursor(Qt::CrossCursor));
 }
 
 void Canvas::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons() && currentlyDrawing)
     {
-        currentTool->draw(image, lastPoint, event->pos());
+        if((!currentTool->isSingleClick()))
+        {
+            currentTool->draw(image, lastPoint, event->pos());
+        }
+
         //painter.drawPoint(lastPoint);
         update(QRect(lastPoint, event->pos()).normalized());
         lastPoint = event->pos();
@@ -77,15 +85,23 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
 {
-    if(event->buttons() && currentlyDrawing)
+    //std::cerr << "Release!";
+    if(currentlyDrawing)
     {
-        //QPainter painter(&image);
-        //painter.drawLine(lastPoint, event->pos());
         currentTool->draw(image, lastPoint, event->pos());
-        update(QRect(lastPoint, event->pos()).normalized());
+        if(currentTool->isFullSCreenOperation())
+        {
+            update();
+        }
+        else
+        {
+            update(QRect(lastPoint, event->pos()).normalized());
+        }
+
         lastPoint = event->pos();
     }
     currentlyDrawing = false;
+    QApplication::restoreOverrideCursor();
 }
 
 void Canvas::resizeEvent(QResizeEvent *event)
@@ -466,6 +482,11 @@ update();
 void Canvas::setCurrentTool(Tool *tool)
 {
     currentTool = tool;
+}
+
+Tool *Canvas::getCurrentTool()
+{
+    return currentTool;
 }
 
 

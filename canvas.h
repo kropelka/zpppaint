@@ -7,6 +7,8 @@
 #include<QPaintEvent>
 #include<QPoint>
 #include "tool.h"
+#include "colorpicker.h"
+
 class Canvas : public QWidget
 {
     Q_OBJECT
@@ -34,6 +36,8 @@ public:
     void Contrast(int kontrast);
     void Gamma(int gamma);
     void setCurrentTool(Tool *tool);
+    Tool *getCurrentTool();
+    ColorPicker *colorPicker;
 
 protected:
     void paintEvent(QPaintEvent *event) override;
